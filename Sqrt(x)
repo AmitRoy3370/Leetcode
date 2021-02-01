@@ -1,0 +1,12 @@
+import java.math.*;
+
+class Solution {
+    public int mySqrt(int x) {
+        
+    BigInteger b=new BigInteger( String.valueOf( x ) );        
+        
+    
+        return b.sqrt().intValue();
+        
+    }
+}
