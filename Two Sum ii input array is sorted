@@ -1,0 +1,68 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+
+public class Two_Sum_II_Input_array_is_sorted {
+
+    static int target;
+    
+    static BufferedReader in=new BufferedReader( new InputStreamReader( System.in ) );
+    
+    public static int[] twoSum(int[] numbers, int target) {
+
+    int left=0,right=numbers.length-1;
+        
+        int ans[]=new int[2];
+        
+        while( left<numbers.length && right<numbers.length /*&& left!=right*/ ){
+            
+            if( numbers[left]+numbers[right]<target  ){
+                
+                left++;
+                
+            }else if( numbers[left]+numbers[right]>target ){
+                
+                right--;
+                
+            }else{
+                
+                ans[0]=left+1;
+                ans[1]=right+1;
+                
+                return ans;
+                
+            }
+                
+            
+        }
+        
+        return ans;
+        
+    }
+    
+    public static void main(String[] args) throws IOException {
+        
+        String x[]=in.readLine().split("\\s");
+        
+        target=Integer.parseInt( in.readLine() );
+        
+        int a[]=new int[ x.length ];
+        
+        for(int i=0;i<x.length;i++){
+            
+            a[i]=Integer.parseInt( x[i] );
+            
+        }
+        
+        System.out.println( Arrays.toString( twoSum( a,target ) ) );
+        
+    }
+    
+}
+/*
+
+2 7 11 15
+9
+
+*/
