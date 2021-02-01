@@ -1,0 +1,75 @@
+class Solution {
+    public String longestPalindrome(String s) {
+       
+        char ch[]=s.toCharArray();
+        
+        char T[]=new char[ 2*ch.length+3 ];
+        
+        int P[]=new int[ T.length ];
+        
+        T[0]='$';
+        T[ T.length-1 ]='@';
+        T[ T.length-2 ]='#';
+        
+        int index=0;
+        
+        for(int i=1;i<T.length-2;i++ ){
+            
+            if( i%2==0 ){
+                
+                T[i]=ch[ index++ ];
+                
+            }else{
+                
+                T[i]='#';
+                
+            }
+            
+        }
+        
+        int c=0,r=0,maxLength=0,maxCenter=0;
+        
+        for(int i=1;i<T.length-1;i++ ){
+            
+            int mirr=2*c-i;
+            
+            if( r>i ){
+                
+                P[i]=Math.min( r-i,P[mirr] );
+                
+            }
+            
+            while( T[ i+(1+P[i]) ]==T[ i-(1+P[i]) ] ){
+                
+                P[i]++;
+                
+            }
+            
+            if( P[i]>maxLength ){
+                
+                maxCenter=i;
+                
+                maxLength=P[i];
+                
+            }
+            
+            if( r<i+P[i] ){
+                
+                c=i;
+                
+                r=i+P[i];
+                
+            }
+            
+        }
+        
+        String st=new String(T);
+        
+        st=st.replace("$","");
+        
+        st=st.replace("@","");
+        
+        return st.substring( maxCenter-maxLength,maxLength+maxCenter ).replace("#","").trim();
+        
+    }
+}
