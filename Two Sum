@@ -1,0 +1,58 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Two_Sum {
+
+    static int target;
+    
+    static BufferedReader in=new BufferedReader( new InputStreamReader( System.in ) );
+    
+    static int[] twoSum(int nums[],int k){
+        
+        int n=nums.length;
+        
+      final Map<Integer,Integer> map=new HashMap<>(n);
+        
+        for(int i=0;i<n;i++){
+            
+            int left=nums[i];
+            
+            int right=target-left;
+            
+            if( map.containsKey( right ) ){
+                
+                return new int[]{map.get(right),i};
+                
+            }
+            
+            map.put(left , i);
+            
+        }
+        
+        return new int[]{};
+        
+    }
+    
+    public static void main(String[] args) throws IOException {
+        
+      String x[]=in.readLine().split("\\s");
+        
+      target=Integer.parseInt( in.readLine() );
+      
+      int a[]=new int[x.length];
+      
+      for(int i=0;i<x.length;i++){
+          
+          a[i]=Integer.parseInt( x[i] );
+          
+      }
+      
+        System.out.println( Arrays.toString( twoSum(a,target) ) );
+      
+    }
+    
+}
