@@ -1,0 +1,102 @@
+class Solution {
+    
+     int[] makeLPS( String text,String pattern ){
+        
+        int lps[]=new int[pattern.length() ];
+         
+         int index=0;
+         
+         for(int i=1;i<pattern.length(); ){
+             
+             if( pattern.charAt(i)==pattern.charAt(index) ){
+                 
+                 lps[i]=index+1;
+                 
+                 index++;
+                 i++;
+                 
+             }else{
+                 
+                 if( index!=0 ){
+                     
+                     index=lps[index-1];
+                     
+                 }else{
+                     
+                     lps[i]=index;
+                     
+                     i++;
+                     
+                 }
+                 
+             }
+             
+         }
+         
+         return lps;
+        
+    }
+    
+    int lpsDetector(String text,String pattern){
+        
+        int lps[]=makeLPS(text,pattern);
+        
+        int i=0,j=0;
+        
+        while( i<text.length() ){
+            
+       if( pattern.charAt(j)==text.charAt(i) ){
+           
+           i++;
+           j++;
+           
+       }else{
+           
+           if( j!=0 ){
+               
+               j=lps[j-1];
+               
+           }else{
+               
+               i++;
+               
+           }
+           
+       }     
+        
+            if( j==pattern.length() ){
+                
+                return (i- pattern.length() );
+                
+            }
+            
+        }
+        
+        return -1;
+        
+    }
+    
+    public int strStr(String haystack, String needle) {
+        
+        if( haystack.length()==0 && needle.length()==0 ){
+            
+            return 0;
+            
+        }
+        
+        if( haystack.length()==0 ){
+            
+            return -1;
+            
+        }
+        
+        if( needle.length()==0 ){
+            
+            return 0;
+            
+        }
+        
+        return lpsDetector(haystack,needle);
+        
+    }
+}
