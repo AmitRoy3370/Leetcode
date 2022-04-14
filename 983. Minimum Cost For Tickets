@@ -1,0 +1,61 @@
+class Solution {
+    
+    int map[] = {1, 7, 30};
+    
+    int dp[][];
+    
+    public int mincostTickets(int[] days, int[] costs) {
+        
+        int n = days.length, m = days[n - 1] + 31;
+        
+        dp = new int[n][m];
+        
+        for(int i = 0; i < n; ++i) {
+            
+            for(int j = 0; j < m; ++j) {
+                
+                dp[i][j] = -1;
+                
+            }
+            
+        }
+        
+        return solve(days, costs, 0, 0);
+        
+    }
+    
+    public int solve(int days[], int costs[], int i, int total) {
+        
+        if(i == days.length) {
+            
+            return 0;
+            
+        }
+        
+        if(total > days[i]) {
+            
+            return solve(days, costs, i + 1, total);
+            
+        }
+        
+        if(dp[i][total] != -1) {
+            
+            return dp[i][total];
+            
+        }
+        
+        int temp = Integer.MAX_VALUE;
+        
+        for(int index = 0; index < 3; ++index) {
+            
+            int ans = costs[index] + solve(days, costs, i + 1, days[i] + map[index]);
+            
+            temp = Math.min(ans, temp);
+            
+        }
+        
+        return dp[i][total] = temp;
+        
+    }
+       
+}
