@@ -1,0 +1,44 @@
+class Solution {
+    public int maxProfit(int[] a) {
+        
+        int price = 0, n = a.length;
+
+        boolean desending_sort = true;
+
+        int left_min = Integer.MAX_VALUE, left_min_index = -1;
+
+        for(int i = 0; i < n - 1; ++i) {
+
+            if(a[i] >= a[i + 1]) continue;
+
+            desending_sort = false;
+            break;
+
+        }
+
+        if(desending_sort) return price;
+
+        int min = a[0];
+
+        for(int i = 0; i < n; ++i) {
+
+            if(min >= a[i]) {
+
+                min = a[i];
+
+            }
+
+            int cost = a[i] - min;
+
+            if(cost >= price) {
+
+                price = cost;
+                
+            }
+            
+        }
+
+        return price;
+        
+    }
+}
