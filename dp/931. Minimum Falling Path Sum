@@ -1,0 +1,87 @@
+class Solution {
+
+    int dp(int n, int m, int dp[][], int a[][], boolean visited[][]) {
+
+        if (0 > n || 0 > m || m >= a[0].length || n >= a.length) {
+
+            return 0;
+
+        }
+
+        if(n == 0) {
+
+            return dp[n][m];
+            
+        }
+
+        if (visited[n][m]) {
+
+            return dp[n][m];
+
+        }
+
+        visited[n][m] = true;
+
+        return dp[n][m] = a[n][m] + Math.min(dp(n - 1, m, dp, a, visited),
+                Math.min(dp(n - 1, m + 1, dp, a, visited),
+                        dp(n - 1, m - 1, dp, a, visited)));
+
+    }
+
+    public int minFallingPathSum(int[][] a) {
+
+        int n = a.length;
+
+        int dp[][] = new int[n][n];
+
+        boolean visited[][] = new boolean[n][n];
+
+        for (int i = 0; i != n; ++i) {
+
+            for (int j = 0; j != n; ++j) {
+
+                dp[i][j] = a[i][j];
+
+            }
+
+        }
+
+        for(int i = n - 2; i >= 0; --i) {
+
+            for(int j = 0; j != n; ++j) {
+
+                if(j == n - 1) {
+
+                    dp[i][j] = Math.min(dp[i + 1][j], dp[i + 1][j - 1]) + a[i][j];
+
+                    continue;
+
+                }
+
+                if(j == 0) {
+
+                    dp[i][j] = Math.min(dp[i + 1][j], dp[i + 1][j + 1]) + a[i][j];
+                    continue;
+
+                }
+
+                dp[i][j] = Math.min(Math.min(dp[i + 1][j + 1], dp[i + 1][j - 1]), dp[i + 1][j]) + a[i][j];
+
+            }
+
+        }
+
+        //dp[n - 1][n - 1] = 0;
+
+        int min = Integer.MAX_VALUE;
+
+        for(int i = 0; i != n; ++i) {
+
+            min = Math.min(min, dp[0][i]);
+
+        }
+
+        return min;
+
+    }
+}
