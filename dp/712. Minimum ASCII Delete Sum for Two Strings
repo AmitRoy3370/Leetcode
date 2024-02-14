@@ -1,0 +1,73 @@
+class Solution {
+
+    private static int solve(int i, int j, char x[], char y[], int dp[][]) {
+
+        if(i > x.length - 1) {
+
+            int sum = 0;
+
+            for(int k = j; k != y.length; ++k) {
+
+                sum += y[k];
+
+            }
+
+            return sum;
+
+        }
+
+        if(j > y.length - 1) {
+
+            int sum = 0;
+
+            for(int k = i; k != x.length; ++k) {
+
+                sum += x[k];
+
+            }
+
+            return sum;
+
+        }
+
+        if(dp[i][j] != -1) {
+
+            return dp[i][j];
+
+        }
+
+        if(x[i] == y[j]) {
+
+            return solve(i + 1, j + 1, x, y, dp);
+
+        } else {
+
+            return dp[i][j] = Math.min((int)x[i] + solve(i + 1, j, x, y, dp), (int)y[j] + solve(i, j + 1, x, y, dp));
+        
+        }
+
+    }
+
+    public int minimumDeleteSum(String s1, String s2) {
+
+        char x[] = s1.toCharArray();
+        char y[] = s2.toCharArray();
+
+        int n = x.length, m = y.length;
+
+        int dp[][] = new int[n + 1][m + 1];
+
+        for(int i = 0; i != n + 1; ++i) {
+
+            for(int j = 0; j != m + 1; ++j) {
+
+                dp[i][j] = -1;
+
+            }
+
+        }
+
+        return solve(0, 0, x, y, dp);
+        
+    }
+}
