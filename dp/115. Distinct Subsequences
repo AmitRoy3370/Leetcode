@@ -1,0 +1,72 @@
+class Solution {
+
+    private int solve(int i, int j, char x[], char y[], int dp[][]) {
+
+        if(j >= y.length) {
+
+            return 1;
+
+        }
+
+        if(i >= x.length) {
+
+            return 0;
+
+        }
+
+        if(y.length - j > x.length - i) {
+
+            if(j >= y.length) {
+
+                return 1;
+
+            } else {
+
+                return 0;
+
+            }
+            
+        }
+
+        if(dp[i][j] != -1) {
+
+            return dp[i][j];
+
+        }
+
+        int res = solve(i + 1, j, x, y, dp);
+
+        if(x[i] == y[j]) {
+
+            res += solve(i + 1, j + 1, x, y, dp);
+
+        }
+
+        return dp[i][j] = res;
+
+    }
+
+    public int numDistinct(String s, String t) {
+
+        char x[] = s.toCharArray();
+        char y[] = t.toCharArray();
+
+        int n = x.length, m = y.length;
+
+        int dp[][] = new int[n][m];
+
+        for(int i = 0; i != n; ++i) {
+
+            for(int j = 0; j != m; ++j) {
+
+                dp[i][j] = -1;
+
+            }
+
+        }
+        
+        return solve(0, 0, x, y, dp);
+
+    }
+
+}
