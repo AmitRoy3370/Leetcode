@@ -1,0 +1,45 @@
+class Solution {
+
+    public int lengthOfLIS(int[] a) {
+
+        int n = a.length;
+
+        int dp[] = new int[n];
+
+        int comparator = 0;
+
+        for (int i = 0; i != n; ++i) {
+
+            int j = 0, k = comparator;
+
+            while (j != k) {
+
+                int mid = (j + k) / 2;
+
+                if (a[i] > dp[mid]) {
+
+                    j = mid + 1;
+
+                } else {
+
+                    k = mid;
+
+                }
+
+            }
+
+            dp[j] = a[i];
+
+            if (j == comparator) {
+
+                ++comparator;
+
+            }
+
+        }
+
+        return dp[n - 1] = comparator;
+
+    }
+
+}
