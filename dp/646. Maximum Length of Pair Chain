@@ -1,0 +1,48 @@
+class Solution {
+    
+    public int findLongestChain(int[][] a) {
+
+        int n = a.length, m = a[0].length;
+
+        if(n == 1) {
+
+            return 1;
+
+        }
+
+        int left[] = new int[2002];
+
+        for(int i = 0; i != 2001; ++i) {
+
+            left[i] = Integer.MIN_VALUE;
+            
+        }
+
+        for(int i = 0; i != n; ++i) {
+
+            int l = a[i][0] + 1000;
+            int r = a[i][1] + 1001;
+
+            left[r] = Math.max(left[r], l);
+
+        }
+
+        int dp[] = new int[2002];
+
+        for(int i = 1; i != 2002; ++i) {
+
+            dp[i] = dp[i- 1];
+
+            if(left[i] != Integer.MIN_VALUE) {
+
+                dp[i] = Math.max(dp[i], dp[left[i]] + 1);
+
+            }
+
+        }
+
+        return dp[2001];
+
+    }
+
+}
