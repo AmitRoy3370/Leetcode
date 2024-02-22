@@ -1,0 +1,71 @@
+class Solution {
+    
+    public int maxEnvelopes(int[][] a) {
+        
+        int n = a.length, m = a[0].length;
+
+        int dp[] = new int[n];
+
+        int maxLen = 0, index = 0;
+
+        Arrays.sort(a, new Comparator<int[]>(){
+
+            public  int compare(int a1[], int a2[]) {
+
+                if(a1[0] == a2[0]) {
+
+                    return a2[1]- a1[1];
+
+                } else {
+
+                    return a1[0] - a2[0];
+
+                }
+
+            }
+
+        });
+
+        //print(a);
+
+        for(int arr[] : a) {
+
+            index = Arrays.binarySearch(dp, 0, maxLen, arr[1]);
+
+            if(0 > index) {
+
+                index = -(index + 1);
+
+            }
+
+            dp[index] = arr[1];
+
+            if(index == maxLen) {
+
+                ++maxLen;
+                
+            }
+
+        }
+
+        return maxLen;
+
+    }
+
+    void print(int a[][]) {
+
+        for(int i[] : a) {
+
+            for(int j : i) {
+
+                System.out.print(j + " ");
+
+            }
+
+            System.out.println();
+
+        }
+
+    }
+
+}
