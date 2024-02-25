@@ -1,0 +1,58 @@
+class Solution {
+    
+    private int solve(int i, int a[], int dp[][], int fee, int operation) {
+
+        if(i >= a.length) {
+
+            return 0;
+
+        }
+
+        if(dp[operation][i] != -1) {
+
+            return dp[operation][i];
+
+        }
+
+        int maxIncome = Integer.MIN_VALUE;
+
+        if(operation == 0) { // buy or leave
+
+            maxIncome = Math.max(maxIncome, solve(i + 1, a, dp, fee, 1) - a[i]);
+            maxIncome = Math.max(maxIncome, solve(i + 1, a, dp, fee, 0));
+
+        } else if(operation == 1) {
+
+            maxIncome = Math.max(maxIncome, a[i] + solve(i + 1, a, dp, fee, 0)) - fee;
+            maxIncome = Math.max(maxIncome, solve(i + 1, a, dp, fee, 1));
+        
+        } else if(operation == 2) {
+
+            return dp[operation][i] = (solve(i + 1, a, dp, fee, 0));
+
+        }
+
+        return dp[operation][i] = maxIncome;
+
+    }
+
+    public int maxProfit(int[] a, int fee) {
+        
+        int n = a.length;
+
+        int dp[][] = new int[3][n];
+
+        for(int i = 0; i != 3; ++i) {
+
+            for(int j = 0; j != n; ++j) {
+
+                dp[i][j] = -1;
+
+            }
+
+        }
+
+        return solve(0, a, dp, fee, 0);
+
+    }
+}
