@@ -1,0 +1,116 @@
+class Solution {
+
+    public int numDecodings(String s) {
+
+        char x[] = s.toCharArray();
+
+        if(x[0] == '0') {
+
+            return 0;
+
+        }
+
+        int n = x.length;
+
+        // char map[] = new char[]{'_', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+        // 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+        // 'Y', 'Z'};
+
+        // int ways = 1;
+
+        int dp[] = new int[n];
+
+        for (int i = 0; i != n; ++i) {
+
+            if (x[i] == '0') {
+
+                continue;
+
+            }
+
+            dp[i] = 1;
+
+        }
+
+        // print(dp);
+
+        for (int i = n - 1; i >= 0; --i) {
+
+            if (x[i] == '0') {
+
+                if(i - 1 >= 0) {
+
+                    if(Integer.parseInt(x[i - 1] + "" + x[i]) > 26) {
+
+                        return 0;
+
+                    }
+
+                }
+
+                continue;
+
+            } else {
+
+                // print(dp);
+
+                if (i + 1 >= n) {
+
+                    continue;
+
+                }
+
+                if (i + 2 >= n) {
+
+                    if (Integer.parseInt(x[i] + "" + x[i + 1]) > 26) {
+
+                        continue;
+
+                    }
+
+                    if(x[i + 1] == '0') {
+
+                        continue;
+
+                    }
+
+                    dp[i] += dp[i + 1];
+                    continue;
+
+                }
+
+                // System.out.println("here");
+
+                if(Integer.parseInt(x[i] + "" + x[i + 1]) > 26) {
+
+                    dp[i] = dp[i + 1];
+
+                    continue;
+
+                }
+
+                dp[i] = dp[i + 1] + dp[i + 2];
+
+            }
+
+        }
+
+        //print(dp);
+
+        return dp[0];
+
+    }
+
+    private void print(int dp[]) {
+
+        for (int i : dp) {
+
+            System.out.print(i + " ");
+
+        }
+
+        System.out.println();
+
+    }
+
+}
