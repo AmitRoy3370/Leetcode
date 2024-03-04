@@ -1,0 +1,28 @@
+class Solution {
+    
+    public long mostPoints(int[][] a) {
+        
+        int n = a.length, m = a[0].length;
+
+        long ans = 0L;
+
+        long dp[] = new long[n + 1];
+
+        for(int i = n - 1; i >= 0; --i) {
+
+            dp[i] = a[i][0] + (i + a[i][1] + 1 >= n ? 0L : dp[i + (int)a[i][1] + 1]);
+            dp[i] = Math.max(dp[i], dp[i + 1]);
+        
+        }
+
+        for(long i : dp) {
+
+            ans = Math.max(i, ans);
+
+        }
+
+        return ans;
+
+    }
+
+}
