@@ -1,0 +1,61 @@
+class Solution {
+
+    private int solve(int amount, int coins[], int dp[][], int i) {
+
+        if (i >= coins.length) {
+
+            return 0;
+
+        }
+
+        if (amount == 0) {
+
+            return 1;
+
+        }
+
+        if (dp[amount][i] != -1) {
+
+            return dp[amount][i];
+
+        }
+
+        int ans = 0;
+
+        for (int j = i; j < coins.length; ++j) {
+
+            if (amount >= coins[j]) {
+
+                ans += solve(amount - coins[j], coins, dp, j);
+
+            }
+
+        }
+
+        return dp[amount][i] = ans;
+
+    }
+
+    public int change(int amount, int[] coins) {
+
+        int n = coins.length;
+
+        int dp[] = new int[amount + 1];
+
+        dp[0] = 1;
+
+        for(int coin : coins) {
+
+            for(int i = coin; i <= amount; ++i) {
+
+                dp[i] += dp[i - coin];
+
+            }
+
+        }
+
+        return dp[amount];
+
+    }
+
+}
