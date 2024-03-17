@@ -1,0 +1,27 @@
+class Solution {
+    
+    public boolean isSubstringPresent(String s) {
+        
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append(s);
+        
+        sb.reverse();
+        
+        String t = sb.toString();
+        
+        for(int i = 0; i != s.length() - 1; ++i) {
+            
+            if(t.contains(s.charAt(i) + "" + s.charAt(i + 1))) {
+                
+                return true;
+                
+            }
+            
+        }
+        
+        return false;
+        
+    }
+    
+}
