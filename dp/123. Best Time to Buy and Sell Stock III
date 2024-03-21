@@ -1,0 +1,27 @@
+class Solution {
+    
+    public int maxProfit(int[] a) {
+        
+        int n = a.length;
+        int dp[][] = new int[3][n + 1];
+
+        int maxDifference = -a[0];
+
+        for(int transaction = 1; transaction < 3; ++ transaction) {
+
+            maxDifference = -a[0];
+
+            for(int i = 1; i < n; ++i) {
+
+                dp[transaction ][i] = Math.max(dp[transaction ][i - 1], maxDifference + a[i]);
+                maxDifference = Math.max(maxDifference, dp[transaction - 1][i] - a[i]);
+
+            }
+
+        }
+
+        return dp[2][n - 1];
+
+    }
+
+}
