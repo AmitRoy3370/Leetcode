@@ -1,0 +1,47 @@
+class Solution {
+    public int removeDuplicates(int[] a) {
+         
+        Map<Integer, Integer> map = new HashMap<>();
+
+        TreeMap<Integer, Integer> indices = new TreeMap<>();
+
+        int n = a.length;
+
+        for(int i : a) {
+
+            map.put(i, 0);
+
+        }
+
+        for(int i = 0; i < n; ++i) {
+
+            if(map.get(a[i]) <= 2) {
+
+                map.put(a[i], map.getOrDefault(a[i], 0) + 1);
+                indices.put(i, a[i]);
+
+                if(map.get(a[i]) > 2) {
+
+                    map.put(a[i], map.get(a[i]) - 1);
+                    indices.remove(i);
+                    
+                }
+            
+            }
+
+            a[i] = 0;
+
+        }
+
+        int index = 0;
+
+        for(int i : indices.keySet()) {
+
+            a[index++] = indices.get(i);
+
+        }
+
+        return indices.size();
+
+    }
+}
