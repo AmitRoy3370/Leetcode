@@ -1,0 +1,25 @@
+class Solution {
+    public int maxProfit(int[] a) {
+        
+        int n = a.length;
+
+        int earn = Integer.MIN_VALUE;
+
+        int min = a[0];
+
+        for(int i = 1; i < n; ++i) {
+
+            if(min >= a[i]) {
+
+                min = a[i];
+
+            }
+
+            earn = Math.max(a[i] - min, earn);
+
+        }
+
+        return earn = Math.max(0, earn);
+
+    }
+}
