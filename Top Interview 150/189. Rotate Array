@@ -1,0 +1,50 @@
+class Solution {
+    public void rotate(int[] a, int k) {
+        
+        int n = a.length;
+
+        k %= n;
+
+        int b[] = new int[n];
+
+        for(int i = 0; i < k; ++i) {
+
+            b[i] = a[n - k + i];
+
+        }
+
+        for(int i = 0, j = k; i < n - k && j < n; ++i, ++j) {
+
+            b[j] = a[i];
+
+        }
+
+        for(int i = 0; i < n; ++i) {
+
+            a[i] = b[i];
+
+        }
+
+    }
+
+    void swap(int a[], int i, int j) {
+
+        int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+
+    }
+
+    void print(int a[]) {
+
+        for(int i : a) {
+
+            System.out.print(i + " ");
+
+        }
+
+        System.out.println();
+
+    }
+
+}
