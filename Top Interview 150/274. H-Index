@@ -1,0 +1,43 @@
+class Solution {
+  public int hIndex(int[] a) {
+
+    int n = a.length, low = 0, high = n - 1;
+
+    if (n == 0) {
+
+      return 0;
+
+    }
+
+    Arrays.sort(a);
+
+    if (a[0] >= n) {
+
+      return n;
+
+    }
+
+    int candidate = 0;
+
+    while (high >= low) {
+
+      int mid = (low + high) / 2;
+
+      if (a[mid] >= n - mid) {
+
+        candidate = n - mid;
+        high = mid - 1;
+
+      } else {
+
+        low = mid + 1;
+
+      }
+
+    }
+
+    return candidate;
+
+  }
+
+}
